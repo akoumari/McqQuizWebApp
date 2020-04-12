@@ -2,7 +2,7 @@
 
 {% block content %}
 <a class="btn btn-secondary btn-sm mb-3" href="{% url 'polls:index' %}">Back To Polls</a>
-<h1 class="text-center mb-3">{{ question.question_text }}</h1>
+<h1 class="text-center mb-3">{{ test.question_text }}</h1>
 
 {% if error_message %}
 <p class="alert alert-danger">
@@ -10,24 +10,38 @@
 </p>
 {% endif %}
 <!-- this would change to test.id in action-->
-<form action="{% url 'polls:vote' question.id %}" method="post">
+<form action="{% url 'polls:vote' test.id %}" method="post">
 	{% csrf_token %} 
-<!--for question in test.question_set.all
-<div id={{ question.id }}>
-	<h2 class="text-center mb-3">{{ question.question_text }}</h1>
--->
-	{% for choice in question.choice_set.all %}
-		<div class="form-check">
-			<input
-				type="radio"
-				name="choice"
-				class="form-check-input"
-				id="choice{{ forloop.counter }}"
-				value="{{ choice.id }}"
-			/>
-			<label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label
-			>
+	{% for question in test.question_set.all %}
+	<div id={{ question.id }} class="row card mb-2">
+		<div class="col-12">
+
+			<p class="text-center mb-3">{{ question.question_text }}</p>
+			<div class="row card-body">
+				<div class="col-12">
+
+					{% for choice in question.choice_set.all %}
+					<div class="row">
+						<div class="col-12">
+
+							<div class="form-check">
+								<input
+									type="radio"
+									name={{ question.id }}
+									class="form-check-input"
+									id="choice{{ forloop.counter }}"
+									value="{{ choice.id }}"
+								/>
+								<label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label
+								>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
 		</div>
+	</div>
 	{% endfor %}
 	<input type="submit" value="Vote" class="btn btn-success btn-lg btn-block mt-4" />
 </form>

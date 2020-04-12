@@ -2,20 +2,34 @@
 
 {% block content %}
 
-<h1 class="mb-5 text-center">{{ question.question_text }}</h1>
-
-<ul class="list-group mb-5">
-	{% for choice in question.choice_set.all %}
-	<li class="list-group-item">
-		{{ choice.choice_text }}  
-		<span class="badge badge-success float-right ">{{ choice.vote_percent }} %</span>
-		<span class="badge badge-success float-right mr-2">{{ choice.votes }} vote{{ choice.votes | pluralize }}</span>
-	</li>
-	{% endfor %}
-</ul>
-
+<h1 class="mb-5 text-center">{{ test.test_text }}</h1>
+<h2 class="mb-5 text-center">
+	You score {{ score }} %
+	{% if score > 50 %}
+		<div class="mb-5 text-center alert alert-success">Congradulations You Passed!!!</div>
+	{% else %}
+		<div class="mb-5 text-center alert alert-danger">Sorry You Failed...</div>
+	{% endif %}
+</h2>
+{% for question in test.question_set.all %}
+	<h2 class="mb-5 text-center">{{ question.question_text }}</h1>
+	<ul class="list-group mb-5">
+		{% for choice in question.choice_set.all %}
+		<li class="list-group-item" style="color: {% if choice.isCorrect %}
+		green; font-weight: bold;
+		{% else %}
+		red;
+		{% endif %}
+	">
+			{{ choice.choice_text }}  
+			<span class="badge badge-success float-right " >{{ choice.vote_percent }} %</span>
+			<span class="badge badge-success float-right mr-2">{{ choice.votes }} student{{ choice.votes | pluralize }} answered</span>
+		</li>
+		{% endfor %}
+	</ul>
+{% endfor %}
 <a class="btn btn-secondary" href="{% url 'polls:index' %}">Back To Polls</a>
-<a class="btn btn-dark" href="{% url 'polls:detail' question.id %}">Vote again?</a>
+<a class="btn btn-dark" href="{% url 'polls:detail' test.id %}">Vote again?</a>
 
 
 {% endblock %}
