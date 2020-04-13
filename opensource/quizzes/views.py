@@ -7,19 +7,19 @@ from django.urls import reverse
 def index(request):
     latest_test_list = Test.objects.order_by('-pub_date')[:10]
     context = {'latest_test_list': latest_test_list}
-    return render(request, 'polls/index.html', context)
+    return render(request, 'quizzes/index.html', context)
 
 def detail(request, test_id):
     try:
         test = Test.objects.get(pk=test_id)
     except Test.DoesNotExist:
         raise Http404("Quiz was not found...")
-    return render(request, 'polls/detail.html', {'test': test})
+    return render(request, 'quizzes/detail.html', {'test': test})
 
 def results(request, test_id ,score):
     print(score)
     test = get_object_or_404(Test, pk=test_id)
-    return render(request, 'polls/results.html', {'test': test, 'score': score})
+    return render(request, 'quizzes/results.html', {'test': test, 'score': score})
     
 def vote(request, test_id):
     # print(request.POST['choice'])
@@ -32,7 +32,7 @@ def vote(request, test_id):
             selected_choice.append(test.choice_set.get(pk=key))
     except (KeyError, Choice.DoesNotExist):
         # Redisplay the question voting form.
-        return render(request, 'polls/detail.html', {
+        return render(request, 'quizzes/detail.html', {
             'test': test,
             'error_message': "You didn't select a choice.",
         })
@@ -60,4 +60,4 @@ def vote(request, test_id):
             # Always return an HttpResponseRedirect after successfully dealing
             # with POST data. This prevents data from being posted twice if a
             # user hits the Back button.
-        return HttpResponseRedirect(reverse('polls:results', args=(test.id, score)))
+        return HttpResponseRedirect(reverse('quizzes:results', args=(test.id, score)))

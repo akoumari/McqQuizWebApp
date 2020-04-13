@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
                 ('question_text', models.CharField(max_length=200)),
                 ('total_votes', models.IntegerField(default=0)),
                 ('pub_date', models.DateTimeField(verbose_name='date published')),
-                ('test', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.Test')),
+                ('test', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='quizzes.Test')),
             ],
         ),
         migrations.CreateModel(
@@ -38,8 +38,8 @@ class Migration(migrations.Migration):
                 ('vote_percent', models.IntegerField(default=0)),
                 ('votes', models.IntegerField(default=0)),
                 ('isCorrect', models.BooleanField(default=False)),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.Question')),
-                ('test', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='polls.Test')),
+                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='quizzes.Question')),
+                ('test', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='quizzes.Test')),
             ],
         ),
     ]

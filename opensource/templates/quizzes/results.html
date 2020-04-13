@@ -28,8 +28,8 @@
 		{% endfor %}
 	</ul>
 {% endfor %}
-<a class="btn btn-secondary" href="{% url 'polls:index' %}">Back To Polls</a>
-<a class="btn btn-dark" href="{% url 'polls:detail' test.id %}">Vote again?</a>
+<a class="btn btn-secondary" href="{% url 'quizzes:index' %}">Back To Quizzes</a>
+<a class="btn btn-dark" href="{% url 'quizzes:detail' test.id %}">Try again?</a>
 
 
 {% endblock %}

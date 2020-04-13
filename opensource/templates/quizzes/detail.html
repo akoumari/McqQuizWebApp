@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<a class="btn btn-secondary btn-sm mb-3" href="{% url 'polls:index' %}">Back To Polls</a>
+<a class="btn btn-secondary btn-sm mb-3" href="{% url 'quizzes:index' %}">Back To Quizzes</a>
 <h1 class="text-center mb-3">{{ test.question_text }}</h1>
 
 {% if error_message %}
@@ -10,7 +10,7 @@
 </p>
 {% endif %}
 <!-- this would change to test.id in action-->
-<form action="{% url 'polls:vote' test.id %}" method="post">
+<form action="{% url 'quizzes:vote' test.id %}" method="post">
 	{% csrf_token %} 
 	{% for question in test.question_set.all %}
 	<div id={{ question.id }} class="row card mb-2">
@@ -43,7 +43,7 @@
 		</div>
 	</div>
 	{% endfor %}
-	<input type="submit" value="Vote" class="btn btn-success btn-lg btn-block mt-4" />
+	<input type="submit" value="Submit" class="btn btn-success btn-lg btn-block mt-4" />
 </form>
 
 
